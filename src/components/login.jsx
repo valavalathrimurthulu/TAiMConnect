@@ -1,13 +1,25 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
-    setMessage("Sign-in is not connected to an authentication service yet.");
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get('email');
+    const password = formData.get('password');
+
+    if (!email || !password) {
+      setMessage('Please enter your email and password.');
+      return;
+    }
+
+    setMessage('Signing you in...');
+    navigate('/dashboard');
   }
 
   return (
@@ -58,7 +70,7 @@ function Login() {
               <button
                 className="text-button"
                 type="button"
-                onClick={() => setMessage("Please contact your workspace administrator to reset your password.")}
+                onClick={() => setMessage('Please contact your workspace administrator to reset your password.')}
               >
                 Forgot password?
               </button>
@@ -67,7 +79,7 @@ function Login() {
               <input
                 id="password"
                 name="password"
-                type={passwordVisible ? "text" : "password"}
+                type={passwordVisible ? 'text' : 'password'}
                 placeholder="Enter your password"
                 autoComplete="current-password"
                 required
@@ -76,10 +88,10 @@ function Login() {
                 className="password-toggle"
                 type="button"
                 onClick={() => setPasswordVisible((visible) => !visible)}
-                aria-label={passwordVisible ? "Hide password" : "Show password"}
+                aria-label={passwordVisible ? 'Hide password' : 'Show password'}
                 aria-pressed={passwordVisible}
               >
-                {passwordVisible ? "Hide" : "Show"}
+                {passwordVisible ? 'Hide' : 'Show'}
               </button>
             </div>
 
