@@ -1,0 +1,29 @@
+[
+  {
+    "firstName": "Akhil",
+    "lastName": "Kothapalli",
+    "phone": "+91 90000 00000",
+    "role": "Student",
+    "email": "taimconnect.demo.user@gmail.com",
+    "password": "Demo@12345",
+    "batch": "October 2026"
+  },
+  {
+    "firstName": "Chandu",
+    "lastName": "Demo",
+    "phone": "+91 90000 00001",
+    "role": "Student",
+    "email": "chandu.demo@gmail.com",
+    "password": "Chandu@12345",
+    "batch": "October 2026"
+  },
+  {
+    "firstName": "Thimurthulu",
+    "lastName": "Demo",
+    "phone": "+91 90000 00002",
+    "role": "Student",
+    "email": "thimurthulu.demo@gmail.com",
+    "password": "Thimurthulu@12345",
+    "batch": "October 2026"
+  }
+]

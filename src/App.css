@@ -1,3 +1,4 @@
+
 .login-page {
   min-height: 100vh;
   display: grid;
@@ -103,11 +104,24 @@
 
 .login-card {
   width: min(100%, 410px);
+  padding: 38px;
+  border: 1px solid #e4eaf1;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(18, 35, 60, 0.1);
+}
+
+.login-page .brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  color: #102438;
+  background: #72dec4;
 }
 
 .mobile-brand {
   display: none;
-  margin-bottom: 42px;
+  margin-bottom: 32px;
   color: #172a43;
 }
 
@@ -129,15 +143,20 @@
 }
 
 .login-intro {
+  margin-top: 8px;
   color: #718096;
   font-size: 14px;
   line-height: 1.6;
 }
 
+.login-intro p {
+  margin: 0;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
-  margin-top: 32px;
+  margin-top: 26px;
 }
 
 .login-form > label,
@@ -148,6 +167,8 @@
   font-weight: 650;
 }
 
+/* Login and Registration input fields */
+.login-form input[type="text"],
 .login-form input[type="email"],
 .password-input-wrap input {
   width: 100%;
@@ -171,6 +192,22 @@
 .login-form input:focus {
   border-color: #31a991;
   box-shadow: 0 0 0 3px rgba(49, 169, 145, 0.14);
+}
+
+.login-form input[aria-invalid="true"] {
+  border-color: #d14343;
+}
+
+.login-form input[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(209, 67, 67, 0.12);
+}
+
+.field-error {
+  display: block;
+  margin-top: 6px;
+  color: #b42318;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .password-label-row {
@@ -268,19 +305,19 @@
   background: #147966;
 }
 
-.sign-in-button:focus-visible,
-.password-toggle:focus-visible,
-.text-button:focus-visible {
-  outline: 3px solid rgba(49, 169, 145, 0.35);
-  outline-offset: 3px;
-}
-
 .form-message {
   min-height: 20px;
   margin-top: 12px;
   color: #63748a;
   font-size: 12px;
   line-height: 1.5;
+}
+
+.sign-in-button:focus-visible,
+.password-toggle:focus-visible,
+.text-button:focus-visible {
+  outline: 3px solid rgba(49, 169, 145, 0.35);
+  outline-offset: 3px;
 }
 
 .signup-prompt {
@@ -311,6 +348,10 @@
     padding: 40px 24px 24px;
   }
 
+  .login-card {
+    padding: 30px 26px;
+  }
+
   .mobile-brand {
     display: inline-flex;
   }
@@ -327,7 +368,11 @@
 
 @media (max-width: 380px) {
   .login-panel {
-    padding-inline: 20px;
+    padding-inline: 14px;
+  }
+
+  .login-card {
+    padding: 26px 20px;
   }
 
   .mobile-brand {
@@ -335,6 +380,7 @@
   }
 }
 
+/* Dashboard */
 .dashboard-shell {
   display: flex;
   min-height: 100vh;
@@ -467,6 +513,28 @@
   color: #fff;
   font-weight: 700;
   cursor: pointer;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #475569;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #fef2f2;
+  color: #b91c1c;
 }
 
 .dashboard-main {

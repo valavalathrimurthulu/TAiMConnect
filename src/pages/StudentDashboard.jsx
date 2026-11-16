@@ -1,13 +1,21 @@
+
 import { useOutletContext } from 'react-router-dom';
+
 import WelcomeBanner from '../components/WelcomeBanner';
 import ProgramCard from '../components/ProgramCard';
 import UpcomingClasses from '../components/UpcomingClasses';
 import LearningMaterials from '../components/LearningMaterials';
 import AssignmentsTable from '../components/AssignmentsTable';
-import { program, upcomingClasses, learningMaterials, assignments } from '../data/dashboardData';
+
+import {
+  program,
+  upcomingClasses,
+  learningMaterials,
+  assignments,
+} from '../data/dashboardData';
 
 export default function StudentDashboard() {
-  const { searchTerm } = useOutletContext();
+  const { searchTerm = '', user } = useOutletContext();
 
   const filteredClasses = upcomingClasses.filter((item) =>
     item.topic.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -26,7 +34,7 @@ export default function StudentDashboard() {
 
   return (
     <>
-      <WelcomeBanner />
+      <WelcomeBanner firstName={user?.firstName || user?.name || 'Student'} />
 
       <div className="content-grid">
         <div className="content-main">
