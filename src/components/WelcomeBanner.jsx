@@ -1,6 +1,6 @@
 import { Sparkles, Code2 } from 'lucide-react';
 
-export default function WelcomeBanner() {
+export default function WelcomeBanner({ firstName }) {
   return (
     <section className="welcome-banner">
       <div className="welcome-copy">
@@ -8,7 +8,7 @@ export default function WelcomeBanner() {
           <Sparkles size={14} />
           Learning progress
         </span>
-        <h1>Welcome back, thrimurthulu! 👋</h1>
+        <h1>Welcome back, {firstName}! 👋</h1>
         <p>Keep learning, keep building your future with TAiM.</p>
       </div>
 

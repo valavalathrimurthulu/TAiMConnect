@@ -6,6 +6,7 @@ export const sidebarItems = [
   { label: 'Assignments', path: '/dashboard/assignments', key: 'assignments' },
   { label: 'Projects', path: '/dashboard/projects', key: 'projects' },
   { label: 'Certificates', path: '/dashboard/certificates', key: 'certificates' },
+  { label: 'Students Details', path: '/dashboard/students', key: 'students' },
   { label: 'Profile', path: '/dashboard/profile', key: 'profile' },
 ];
 
@@ -49,10 +50,34 @@ export const upcomingClasses = [
 ];
 
 export const learningMaterials = [
-  { id: 1, title: 'React Components Basics', type: 'Video', detail: '35 mins', icon: 'play' },
-  { id: 2, title: 'State Management Notes', type: 'PDF', detail: '12 pages', icon: 'file' },
-  { id: 3, title: 'API Integration in React', type: 'Video', detail: '40 mins', icon: 'play' },
-  { id: 4, title: 'React Interview Questions', type: 'PDF', detail: '18 pages', icon: 'file' },
+  {
+    id: 1,
+    title: 'React Components Basics',
+    type: 'Video',
+    detail: '35 mins',
+    icon: 'play',
+  },
+  {
+    id: 2,
+    title: 'State Management Notes',
+    type: 'PDF',
+    detail: '12 pages',
+    icon: 'file',
+  },
+  {
+    id: 3,
+    title: 'API Integration in React',
+    type: 'Video',
+    detail: '40 mins',
+    icon: 'play',
+  },
+  {
+    id: 4,
+    title: 'React Interview Questions',
+    type: 'PDF',
+    detail: '18 pages',
+    icon: 'file',
+  },
 ];
 
 export const assignments = [

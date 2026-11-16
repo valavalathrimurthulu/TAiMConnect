@@ -1,33 +1,82 @@
+
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
+    console.log('LOGIN BUTTON CLICKED');
+
     const formData = new FormData(event.currentTarget);
-    const email = formData.get('email');
-    const password = formData.get('password');
+    const email = formData.get('email')?.toString().trim().toLowerCase();
+    const password = formData.get('password')?.toString();
 
     if (!email || !password) {
       setMessage('Please enter your email and password.');
       return;
     }
 
-    setMessage('Signing you in...');
-    navigate('/dashboard');
+    try {
+      setLoading(true);
+      setMessage('Connecting to server...');
+
+      const response = await fetch(
+        'http://localhost:5000/api/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      const data = await response.json();
+
+      console.log('LOGIN API STATUS:', response.status);
+      console.log('LOGIN API RESPONSE:', data);
+
+      if (!response.ok) {
+        setMessage(data.message || 'Invalid email or password.');
+        return;
+      }
+
+      if (!data.token) {
+        setMessage('Login failed: Authentication token not received.');
+        return;
+      }
+
+      localStorage.setItem('token', data.token);
+
+      if (data.user) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+      }
+
+      setMessage('Login successful! Opening dashboard...');
+
+      navigate('/dashboard', { replace: true });
+    } catch (error) {
+      console.error('Login error:', error);
+      setMessage('Unable to connect to server. Check whether backend is running.');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <main className="login-page">
-      <section className="login-showcase" aria-label="login TAiM Connect">
+      <section className="login-showcase" aria-label="TAiM Connect">
         <Link className="brand" to="/login" aria-label="TAiM Connect home">
           <span className="brand-mark" aria-hidden="true">T</span>
-          <span>TAiM<span className="brand-light">Connect</span></span>
+          <span>
+            TAiM<span className="brand-light">Connect</span>
+          </span>
         </Link>
 
         <div className="showcase-copy">
@@ -48,11 +97,17 @@ function Login() {
         <div className="login-card">
           <div className="mobile-brand">
             <span className="brand-mark" aria-hidden="true">T</span>
-            <span>TAiM<span className="brand-light">Connect</span></span>
+            <span>
+              TAiM<span className="brand-light">Connect</span>
+            </span>
           </div>
+
           <span className="eyebrow login-eyebrow">Welcome back</span>
           <h2 id="login-title">Sign in to your account</h2>
-          <p className="login-intro">Enter your details to access your workspace.</p>
+
+          <p className="login-intro">
+            Enter your details to access your workspace.
+          </p>
 
           <form className="login-form" onSubmit={handleSubmit}>
             <label htmlFor="email">Email address</label>
@@ -70,11 +125,16 @@ function Login() {
               <button
                 className="text-button"
                 type="button"
-                onClick={() => setMessage('Please contact your workspace administrator to reset your password.')}
+                onClick={() =>
+                  setMessage(
+                    'Please contact your workspace administrator to reset your password.'
+                  )
+                }
               >
                 Forgot password?
               </button>
             </div>
+
             <div className="password-input-wrap">
               <input
                 id="password"
@@ -84,12 +144,11 @@ function Login() {
                 autoComplete="current-password"
                 required
               />
+
               <button
                 className="password-toggle"
                 type="button"
                 onClick={() => setPasswordVisible((visible) => !visible)}
-                aria-label={passwordVisible ? 'Hide password' : 'Show password'}
-                aria-pressed={passwordVisible}
               >
                 {passwordVisible ? 'Hide' : 'Show'}
               </button>
@@ -102,15 +161,27 @@ function Login() {
               </label>
             </div>
 
-            <button className="sign-in-button" type="submit">Sign in</button>
-            <p className="form-message" role="status" aria-live="polite">{message}</p>
+            <button
+              className="sign-in-button"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? 'Signing in...' : 'Sign in'}
+            </button>
+
+            <p className="form-message" role="status" aria-live="polite">
+              {message}
+            </p>
           </form>
 
           <p className="signup-prompt">
             New to TAiM Connect? Contact your workspace administrator.
           </p>
         </div>
-        <p className="legal-note">© {new Date().getFullYear()} TAiM Connect</p>
+
+        <p className="legal-note">
+          © {new Date().getFullYear()} TAiM Connect
+        </p>
       </section>
     </main>
   );
